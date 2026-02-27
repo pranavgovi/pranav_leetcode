@@ -9,13 +9,20 @@ class Solution:
         for i in range(m):
             for j in range(n):
                 if arr[i][j]==0:
-                    if i==0:
+                    if i==0 and j==0:
                         row0=0
-                    if j==0:
                         col0=0
-                    arr[i][0]=0
-                    arr[0][j]=0
-        
+                    
+                    elif i==0:
+                        row0=0
+                        arr[0][j]=0
+                    elif j==0:
+                        col0=0
+                        arr[i][0]=0
+                    else:
+                        arr[i][0]=0
+                        arr[0][j]=0
+            
         for i in range(1,m):
             if arr[i][0]==0:
                 for j in range(n):
