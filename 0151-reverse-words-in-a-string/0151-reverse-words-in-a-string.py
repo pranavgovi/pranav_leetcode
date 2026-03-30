@@ -1,9 +1,10 @@
 class Solution:
     def reverseWords(self, s: str) -> str:
-        l= s.strip().split()
-        ans=''
+        """
+        split automatically removes leading and trailing spaces
+        """
+        l = s.split()
         l.reverse()
-        for i in l:
-            ans+=i
-            ans+=' '
-        return ans.strip()
+        return " ".join(l)
+    
+
