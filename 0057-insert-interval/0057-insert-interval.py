@@ -1,19 +1,27 @@
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        intervals.append(newInterval)
         intervals.sort()
-        answer=[[intervals[0][0], intervals[0][1]]]
-        n=len(intervals)
-        for i in range(1,n):
-            a,b = answer[-1][0], answer[-1][1]
-            c,d = intervals[i][0], intervals[i][1]
-            if b>=c:
-                answer.pop()
-                answer.append([a, max(b,d)])
-            else:
-                answer.append(intervals[i])
-        return answer
 
-            
-            
-            
+        answer=[]
+        i=0
+        n=len(intervals)
+        #ending is less than newInterval starting
+        while i<n and intervals[i][1]< newInterval[0]:
+            answer.append(intervals[i])
+            i+=1
+      
+        #now there is a merging interval at i
+        #perform merging till u see an interval whose interval[i][0]> curr_end
+        curr_start, curr_end = newInterval[0], newInterval[1]
+        while i<n and intervals[i][0] <= curr_end:
+
+            curr_start = min(intervals[i][0], curr_start)
+            curr_end = max(intervals[i][1], curr_end)
+            i+=1
+        
+        answer.append([curr_start, curr_end])
+
+        while i<n:
+            answer.append(intervals[i])
+            i+=1
+        return answer
