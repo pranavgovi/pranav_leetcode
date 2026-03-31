@@ -1,17 +1,20 @@
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        """
+        first I am trying to think when 2 intervals overlap which one should we remove, 
+        among the two the one that ends quickly so it has less chances of overlapping
+        """
         intervals.sort()
-        n=len(intervals)
-        removal=0
-        a,b = intervals[0][0], intervals[0][1]
+        removals = 0
+        prev_start, prev_end = intervals[0]
+        n = len(intervals)
         for i in range(1,n):
-            c,d = intervals[i][0], intervals[i][1]
-            if c<b:
-                #if they are overallppi g try removing the one that ends the last
-                removal+=1
-                if b>d:
-                    a,b = c,d
+            curr_start, curr_end = intervals[i]
+            if prev_end <= curr_start:
+                prev_start, prev_end = curr_start, curr_end
+                continue
+            
             else:
-                #no overlap just chnage
-                a,b = c,d
-        return removal
+                removals+=1
+                prev_end = min(curr_end, prev_end)
+        return removals
