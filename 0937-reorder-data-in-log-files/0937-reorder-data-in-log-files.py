@@ -7,19 +7,17 @@ class Solution:
             arr = log.split(" ",1)
             ide =arr[0]
             content = arr[1]
-            content =content.split()
             if content[0].isdigit():
                 digitLogs.append(log)
             else:
-                letterLogs.append([[ide]+content,ind])
+                letterLogs.append( [ide,content, ind])
         
         def compare(ar1, ar2):
-            arr1= ar1[0]
-            arr2= ar2[0]
-            content1 = arr1[1:]
-            content2= arr2[1:]
+            id1, id2 =  ar1[0], ar2[0]
+            cont1, cont2 = ar1[1], ar2[1]
+            content1, content2 =  cont1.split(), cont2.split()
             if content1==content2:
-                if arr1[0]>arr2[0]:
+                if id1>id2:
                     return 1
                 else:
                     return -1
@@ -52,6 +50,6 @@ class Solution:
 
         answer=[]
         for ar in letterLogs:
-            _, ind= ar
+            _, _, ind= ar
             answer.append(logs[ind])
         return answer+digitLogs
