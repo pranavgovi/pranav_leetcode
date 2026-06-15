@@ -1,15 +1,15 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        """
-        target-nums[i] in map, we can return prev_ind, curr_ind
-        """
-        lookup= {}
-        for ind, num in enumerate(nums):
-            if target-num not in lookup:
-                #pair not found yet
-                lookup[num]=ind
-            
+        n=len(nums)
+        nums = list(zip(range(n), nums))
+        nums.sort(key= lambda x:x[1])
+        print(nums)
+        left, right = 0, len(nums)-1
+        while left<right:
+            tot = nums[left][1]+ nums[right][1] 
+            if tot == target:
+                return [nums[left][0],  nums[right][0]]
+            elif tot>target:
+                right-=1
             else:
-                return [lookup[target-num], ind]
-        
-        #O(n) time and space
+                left+=1
