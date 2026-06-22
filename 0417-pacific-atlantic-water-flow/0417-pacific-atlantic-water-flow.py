@@ -4,17 +4,16 @@ class Solution:
         m,n = len(heights), len(heights[0])
         def ocean_flow(visited,queue):
             while queue:
-                x = len(queue)
-                for i in range(x):
-                    r,c = queue.popleft()
-                    for dir in directions:
-                        a,b =dir
-                        new_r, new_c = a+r, b+c
-                        if 0<=new_r<m and 0<=new_c<n and (new_r, new_c) not in visited and heights[new_r][new_c] >= heights[r][c]:
-                            queue.append((new_r, new_c))
-                            #only cells taht are reachbale are added
-                            visited.add((new_r, new_c))
-                            #this means that from r,c -> new_r, new_c can be rewacjed
+             
+                r,c = queue.popleft()
+                for dir in directions:
+                    a,b =dir
+                    new_r, new_c = a+r, b+c
+                    if 0<=new_r<m and 0<=new_c<n and (new_r, new_c) not in visited and heights[new_r][new_c] >= heights[r][c]:
+                        queue.append((new_r, new_c))
+                        #only cells taht are reachbale are added
+                        visited.add((new_r, new_c))
+                        #this means that from r,c -> new_r, new_c can be rewacjed
             return
         pacific_visited = set()
         atlantic_visited = set()
