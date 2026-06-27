@@ -10,30 +10,34 @@ class Node:
 
 class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
-        #get the level order 
         """
-        1   for i if there is i+1, i.next = i+1
-        2 3
-        4 5 6 7
+        if not root -> None
+             1 -null                          
+            2 ->3-> null
+        4-> 5->  6- 7-null 
+        level order approach - o(n) time and space
         """
-        temp = root
+        from collections import deque
         if not root:
             return None
-        queue =deque()
+        queue = deque()
         queue.append(root)
-        root.next= None
         while queue:
-            level =[]
-            for i in range(len(queue)):
-                node = queue.popleft()
-                if node.left:
+            x = len(queue)
+            prev_node=None
+            for i in range(x):
+                curr_node = queue.popleft()
+                if prev_node:
+                    prev_node.next= curr_node
+                prev_node = curr_node
+                if curr_node.left:
+                    queue.append(curr_node.left)
+                if curr_node.right:
+                    queue.append(curr_node.right)
 
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-                level.append(node)
+            prev_node.next= None
+        return root
             
-            for i in range(1,len(level)):
-                level[i-1].next = level[i]
-        return temp
+                
 
+     
