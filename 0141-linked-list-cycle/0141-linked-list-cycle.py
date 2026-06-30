@@ -9,11 +9,20 @@ class Solution:
         if not head or not head.next:
             return False
         
-        lookup=set()
-        while head:
-            if head not in lookup:
-                lookup.add(head)
-                head=head.next
-            else:
+        # lookup=set()
+        # while head:
+        #     if head not in lookup:
+        #         lookup.add(head)
+        #         head=head.next
+        #     else:
+        #         return True
+        # return False
+        slow, fast= head, head
+        while fast and fast.next:
+            
+            slow=slow.next
+            fast= fast.next.next
+            if slow==fast:
                 return True
         return False
+
