@@ -34,13 +34,7 @@ class Twitter:
                 heapq.heappush(max_heap, (-timer, id, index, followee))
         self.followers[userId].remove(userId)
         return answer
-           
-        
 
-        self.followers[userId].remove(userId)
-        
-        max_heap.sort(key= lambda x : x[0], reverse= True)
-        return [tweetid for (time, tweetid) in max_heap]
 
         
 
