@@ -13,21 +13,34 @@ class Twitter:
         self.timer+=1
 
     def getNewsFeed(self, userId: int) -> List[int]:
-        min_heap = []
+        max_heap = []
         self.followers[userId].add(userId)
         for followee in self.followers[userId]:
-            for post in self.posts[followee]:
-                time, tweetid = post
-                heapq.heappush(min_heap, (time, tweetid))
+            total = len(self.posts[followee])
+            if total>=1:
+                time, tweetid = self.posts[followee][total-1]    
+                heapq.heappush(max_heap, (-time, tweetid, total-1, followee))
+                if len(max_heap)>10:
+                    heapq.heappop(max_heap)
         
-                if len(min_heap)>10:
-                    heapq.heappop(min_heap)
+        answer = []
+        while max_heap and len(answer)<10:
+
+            _, tweet, index, followee = heapq.heappop(max_heap)
+            answer.append(tweet)
+            index-=1
+            if index>=0:
+                timer, id = self.posts[followee][index]
+                heapq.heappush(max_heap, (-timer, id, index, followee))
+        self.followers[userId].remove(userId)
+        return answer
+           
         
 
         self.followers[userId].remove(userId)
         
-        min_heap.sort(key= lambda x : x[0], reverse= True)
-        return [tweetid for (time, tweetid) in min_heap]
+        max_heap.sort(key= lambda x : x[0], reverse= True)
+        return [tweetid for (time, tweetid) in max_heap]
 
         
 
