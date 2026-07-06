@@ -20,9 +20,11 @@ class Solution:
         if not fresh_count:
             return 0
         
-        timer = 0
-        while queue and fresh_count:
+        timer = -1
+        while len(queue)>0:
+        
             timer+=1
+            print(queue, timer)
             x=len(queue)
             for i in range(x):
                 r,c =queue.popleft()
@@ -33,6 +35,10 @@ class Solution:
                         fresh_count-=1
                         visited[new_r][new_c]=1
                         queue.append((new_r, new_c))
+
+        if not fresh_count:
+            return timer
+        return -1
         
          
         
