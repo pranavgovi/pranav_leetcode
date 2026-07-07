@@ -1,28 +1,38 @@
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
-        #we have to make sure we reach all the nodes in shortest time possible return the maximum of the times
-        min_heap=[]
-        heapq.heappush(min_heap, (0,k)) #we start at k where t=0
+        from collections import deque, defaultdict
+        """
+        task is to obtain the maximum of all minimum time it takes for the signal to reach every node
+        """
+        INF =float('inf')
+        maxi = 0
+        min_time = [INF]*(n+1)
+        queue= deque()
         neighbors=defaultdict(list)
-        for node in times:
-            src, dest, time =node
-            neighbors[src].append([dest, time]) 
+        for time in times:
+            source, dest, t = time
+            neighbors[source].append((dest, t))
+        
+        queue.append((k, 0))
+        min_time[k]=0
+        #so queue consists of node, time_taken to reach node from source
 
-        visited=set()
-        ans=0
-        while min_heap:
-            t , node= heapq.heappop(min_heap)
-            if node in visited:
-                continue
-            ans=max(ans, t)
-            visited.add(node)
+
+        while queue:
+            node, node_time = queue.popleft()
+            min_time[node] = min(min_time[node],node_time)
             for nei in neighbors[node]:
-                nd , time_taken =nei
-                if nd not in visited:
-                    heapq.heappush(min_heap,(t+time_taken, nd) )
-        
-        if len(visited)!=n:
-            return -1
-        return ans
-        
-            #while pushing neighbors 
+                nei_node, nei_time = nei
+                #append a node only when it can be reached faster than its prev value
+                if min_time[nei_node] > nei_time+node_time:
+                    queue.append((nei_node, nei_time+ node_time))
+    
+        answer=0
+        for i in range(1,n+1):
+            if min_time[i]==INF:
+                return -1
+            else:
+                answer= max(answer, min_time[i])
+        return answer
+
+            
