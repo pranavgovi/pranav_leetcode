@@ -7,25 +7,25 @@ class Solution:
         INF =float('inf')
         maxi = 0
         min_time = [INF]*(n+1)
-        queue= deque()
+        min_heap= []
         neighbors=defaultdict(list)
         for time in times:
             source, dest, t = time
             neighbors[source].append((dest, t))
         
-        queue.append((k, 0))
+        heapq.heappush(min_heap,(0,k))
         min_time[k]=0
         #so queue consists of node, time_taken to reach node from source
 
 
-        while queue:
-            node, node_time = queue.popleft()
+        while min_heap:
+            node_time, node = heapq.heappop(min_heap)
             min_time[node] = min(min_time[node],node_time)
             for nei in neighbors[node]:
                 nei_node, nei_time = nei
                 #append a node only when it can be reached faster than its prev value
                 if min_time[nei_node] > nei_time+node_time:
-                    queue.append((nei_node, nei_time+ node_time))
+                    heapq.heappush(min_heap, (nei_time+ node_time, nei_node))
     
         answer=0
         for i in range(1,n+1):
