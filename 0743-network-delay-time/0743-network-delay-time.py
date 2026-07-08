@@ -20,11 +20,12 @@ class Solution:
 
         while min_heap:
             node_time, node = heapq.heappop(min_heap)
-            min_time[node] = min(min_time[node],node_time)
+          
             for nei in neighbors[node]:
                 nei_node, nei_time = nei
                 #append a node only when it can be reached faster than its prev value
                 if min_time[nei_node] > nei_time+node_time:
+                    min_time[nei_node] = min(min_time[nei_node],nei_time+node_time)
                     heapq.heappush(min_heap, (nei_time+ node_time, nei_node))
     
         answer=0
