@@ -22,9 +22,6 @@ class Solution:
         maxi=1
         for i in range(m):
             for j in range(n):
-                if (i,j) in memo:
-                    maxi=max(maxi, memo[(i,j)])
-                else:
-                    maxi= max(dp(i,j), maxi)
+                maxi = max(maxi, dp(i,j))
         return maxi
                 
