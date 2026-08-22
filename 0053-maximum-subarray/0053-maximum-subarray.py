@@ -1,11 +1,12 @@
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        
-        local = 0
-        globall = float('-inf')
+        global_var= float('-inf')
+        local_var=0
+
         for num in nums:
-            local+=num
-            globall = max(local, globall)
-            if local<0:
-                local=0
-        return globall
+            local_var+=num
+       
+            global_var= max(global_var, local_var)
+            if local_var<0:
+                local_var=0
+        return global_var
