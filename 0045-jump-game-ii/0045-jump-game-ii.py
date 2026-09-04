@@ -1,20 +1,21 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
         n=len(nums)
-        l,r =0 ,0
+        #goal is to reach the last index of nums
+        left = 0
+        right = 0
+        jump_count = 0
+        i=0
+        l,r=0,0
+        while r<n-1: #if it reaches we can break the loop
+
+            #for the current range we have to find the farthest and set the range for the next iteration
+            far=0
+
+            for i in range(l,r+1):
+                far= max(far, nums[i]+ i)
+            
+            l, r = r+1, far
+            jump_count+=1
+        return jump_count
         
-        #initially range is l,r =0
-        cnt=0
-        while r<n-1:
-            cnt+=1
-            maxi =nums[l]+l
-            ind=l
-            for i in range(l+1, r+1):
-                if i<n and nums[i]+i > maxi:
-                    maxi = nums[i]+i
-                    ind = i
-            l= r+1
-            r = maxi
-          
-        return cnt
-    
