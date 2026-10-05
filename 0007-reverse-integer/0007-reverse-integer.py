@@ -1,21 +1,29 @@
 class Solution:
     def reverse(self, x: int) -> int:
-        MAX, MIN = (2**31)-1, -(2**31)
-        neg=False
-        if x<0:
-            neg= True
         
-        answer =0 
-    
+        sign = True
+        if x<0:
+            sign=False
+            x*=-1
+        
+        elif x==0:
+            return 0
+        else:
+            sign = True
+        num=0
+        
         while x:
-            curr_digit = int(math.fmod(x, 10)) #for negative numbers also int is used becuase float can be returned
-            if answer>int(MAX/10) or (answer==int(MAX/10) and curr_digit>7):
+            digit = x%10
+            num = num*10 +digit
+            x=x//10
+        if sign:
+            #positive num
+            if num> (2**31-1):
                 return 0
-            if answer<int(MIN/10) or answer==int(MIN/10) and curr_digit<-8:
+            else:
+                return num
+        else:
+            if -num<(-(2**31)):
                 return 0
-            #before building the answer check
-            #now builidng the answer
-            answer= answer*(10) + curr_digit
-            x=int(x/10) #x//10 will truncate towars -inf
-        return answer
-       
+
+            return -num
