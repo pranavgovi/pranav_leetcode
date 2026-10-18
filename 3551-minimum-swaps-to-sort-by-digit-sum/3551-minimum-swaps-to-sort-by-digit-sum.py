@@ -16,7 +16,7 @@ class Solution:
         sorted_order=[]
         for ind,val in enumerate(nums):
             s = sum_digit(val)
-            sorted_order.append([s, val, ind])
+            sorted_order.append([s, val])
         sorted_order.sort()
     
 
