@@ -15,23 +15,21 @@ class Solution:
             visited[r][c]=1
             #for this cell check how many perimeter
             perimeter= 0 
+
+        
             for d in dir:
                 a,b =d
                 new_r, new_c =a+r, b+c
-
                 if not(0<=new_r<m) or not (0<=new_c<n):
                     #this is out of bound
                     perimeter+=1
                 elif grid[new_r][new_c] ==0:
                     perimeter+=1
-            print(perimeter, r,c)
-            ans+=perimeter
-            for d in dir:
-                a,b =d
-                new_r, new_c =a+r, b+c
+                
                 if 0<=new_r<m and 0<=new_c<n and not visited[new_r][new_c] and grid[new_r][new_c]:
                     #this is a land
                     traverse(new_r, new_c)
+            ans+=perimeter
         for i in range(m):
             for j in range(n):
                 if grid[i][j]==1 and not visited[i][j]:
