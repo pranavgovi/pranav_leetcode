@@ -21,17 +21,13 @@ class Solution:
                 new_r, new_c = a+r, b+c
                 if new_r<0 or new_r>=m or new_c<0 or new_c>=n:
                     border= True
-                    break
+                    
                 elif grid[new_r][new_c]!= grid[r][c]:
                     border= True
-                    break
-            if border:
-                borders.add((r,c))
-            for d in dir:
-                a,b = d
-                new_r, new_c = a+r, b+c
                 if 0<=new_r<m and 0<=new_c<n and grid[r][c]==grid[new_r][new_c] and not visited[new_r][new_c]:
                     traverse(new_r, new_c)
+            if border:
+                borders.add((r,c))
         traverse(row, col)
 
         for x in borders:
