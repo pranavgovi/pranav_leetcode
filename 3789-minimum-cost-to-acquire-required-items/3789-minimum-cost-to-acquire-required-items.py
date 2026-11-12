@@ -9,7 +9,7 @@ class Solution:
         else:
             extra_cost = cost2
         #for this common , we can either use costboth or buy them separetly
-        common_price = min(common*costBoth, common*(cost1+cost2))
+        common_price = common*(min(costBoth,(cost1+cost2)))
         extra_price = extra*(min(extra_cost, costBoth))
         return common_price+extra_price
         
